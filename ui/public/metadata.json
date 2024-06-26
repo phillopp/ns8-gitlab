@@ -1,19 +1,20 @@
 {
-  "name": "kickstart",
+  "name": "gitlab",
   "description": {
-    "en": "My kickstart module"
+    "en": "GitLab for Nethserver 8",
+    "de": "GitLab für Nethserver 8"
   },
   "categories": [],
   "authors": [
     {
-      "name": "Name Surname",
-      "email": "author@yourmail.org"
+      "name": "Philip Falliano",
+      "email": "philip.falliano@phillopp.de"
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.kickstart.com/",
-    "bug_url": "https://github.com/NethServer/dev",
-    "code_url": "https://github.com/author/ns8-kickstart"
+    "documentation_url": "https://github.com/phillopp/ns8-gitlab/wiki",
+    "bug_url": "https://github.com/phillopp/ns8-gitlab/issues",
+    "code_url": "https://github.com/phillopp/ns8-gitlab"
   },
-  "source": "ghcr.io/nethserver/kickstart"
+  "source": "ghcr.io/phillopp/gitlab"
 }
