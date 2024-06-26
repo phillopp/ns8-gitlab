@@ -11,24 +11,15 @@ import agent
 import agent.tasks
 import os
 
-request = json.load(sys.stdin)
+data = json.load(sys.stdin)
 
-# TODO: do something with the request payload. For example configure a
-# custom route in our web router. Here the path is hardcoded as
-# 'gitlab'.
+# Setup variables
+external_url = date.get("host", "git.example.org")
 
-# Configure Traefik to route "/gitlab" path requests to the gitlab service
-response = agent.tasks.run(
-    agent_id=agent.resolve_agent_id('traefik@node'),
-    action='set-route',
-    data={
-        'instance': os.environ['MODULE_ID'],
-        'url':  'http://127.0.0.1:' + os.environ["TCP_PORT"],
-        'http2https': False,
-        'lets_encrypt': False,
-        'path': '/gitlab',
-    },
-)
+agent.set_env("EXTERNAL_URL", external_url)
 
-# Check if traefik configuration has been successfull
-agent.assert_exp(response['exit_code'] == 0)
+# Write gitlab.rb Config file
+gitlab_config = {
+    "GITLAB_EMAIL_DISPLAY_NAME": "Gitlab auf dem Nethserver",
+}
+agent.write_envfile('gitlab.rb', gitlab_config)
