@@ -11,9 +11,9 @@ set -e
 # Prepare variables for later use
 images=()
 # The image will be pushed to GitHub container registry
-repobase="${REPOBASE:-ghcr.io/nethserver}"
+repobase="${REPOBASE:-ghcr.io/phillopp}"
 # Configure the image name
-reponame="kickstart"
+reponame="gitlab"
 
 # Create a new empty container image
 container=$(buildah from scratch)
