@@ -25,12 +25,12 @@
           <cv-form @submit.prevent="configureModule">
             <!-- TODO remove test field and code configuration fields -->
             <cv-text-input
-              :label="$t('settings.test_field')"
-              v-model="testField"
-              :placeholder="$t('settings.test_field')"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              :invalid-message="error.testField"
-              ref="testField"
+                :label="$t('settings.host')"
+                v-model="host"
+                :placeholder="$t('settings.host')"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                :invalid-message="error.host"
+                ref="host"
             ></cv-text-input>
             <cv-row v-if="error.configureModule">
               <cv-column>
@@ -85,7 +85,7 @@ export default {
         page: "settings",
       },
       urlCheckInterval: null,
-      testField: "", // TODO remove
+      host: "", // TODO remove
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -93,7 +93,7 @@ export default {
       error: {
         getConfiguration: "",
         configureModule: "",
-        testField: "", // TODO remove
+        host: "", // TODO remove
       },
     };
   },
@@ -167,19 +167,19 @@ export default {
       console.log("config", config);
 
       // TODO focus first configuration field
-      this.focusElement("testField");
+      this.focusElement("host");
     },
     validateConfigureModule() {
       this.clearErrors(this);
       let isValidationOk = true;
 
-      // TODO remove testField and validate configuration fields
-      if (!this.testField) {
+      // TODO remove host and validate configuration fields
+      if (!this.host) {
         // test field cannot be empty
-        this.error.testField = this.$t("common.required");
+        this.error.host = this.$t("common.required");
 
         if (isValidationOk) {
-          this.focusElement("testField");
+          this.focusElement("host");
           isValidationOk = false;
         }
       }
