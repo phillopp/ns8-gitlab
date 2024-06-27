@@ -25,7 +25,7 @@ ExecStart=/usr/bin/podman run \
     --replace --name=gitlab \
     --publish=127.0.0.1:${TCP_PORT}:80 \
     --shm-size 256m \
-    -v %S/state/gitlab.rb:/etc/gitlab/gitlab.rb:ro,Z \
+    --env-file=%S/state/gitlab.env \
     --volume gitlab-config:/etc/gitlab:Z \
     --volume gitlab-data:/var/opt/gitlab:Z \
     --volume gitlab-logs:/var/log/gitlab:Z \

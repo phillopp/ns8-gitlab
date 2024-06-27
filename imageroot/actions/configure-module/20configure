@@ -21,4 +21,4 @@ agent.set_env("HOST", host)
 gitlab_config = {
     "GITLAB_EMAIL_DISPLAY_NAME": "Gitlab auf dem Nethserver",
 }
-agent.write_envfile('gitlab.rb', gitlab_config)
+agent.write_envfile('gitlab.env', gitlab_config)

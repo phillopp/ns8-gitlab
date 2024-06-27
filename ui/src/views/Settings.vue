@@ -166,6 +166,8 @@ export default {
       // TODO remove
       console.log("config", config);
 
+      this.host = config.host;
+
       // TODO focus first configuration field
       this.focusElement("host");
     },
