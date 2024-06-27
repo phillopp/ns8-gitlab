@@ -7,6 +7,12 @@
 
 # If the control reaches this step, the service can be enabled and started
 
+set -e
+
+# Redirect any output to the journal (stderr)
+exec 1>&2
+
 touch smarthost.env
 
 systemctl --user enable --now gitlab.service
+systemctl --user start gitlab.service
