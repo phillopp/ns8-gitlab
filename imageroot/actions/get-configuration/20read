@@ -12,8 +12,9 @@ import os
 
 config = {}
 
-config["host"] = os.getenv("TRAEFIK_HOST","")
-config["http2https"] = os.getenv("TRAEFIK_HTTP2HTTPS") == "True"
-config["lets_encrypt"] = os.getenv("TRAEFIK_LETS_ENCRYPT") == "True"
+env = f'module/{os.environ["MODULE_ID"]}/environment'
+rdb = agent.redis_connect()
+config["host"] =  rdb.hget(env, "HOST")
+config["lets_encrypt"] =  rdb.hget(env, "LETS_ENCRYPT") == "True"
 
 json.dump(config, fp=sys.stdout)

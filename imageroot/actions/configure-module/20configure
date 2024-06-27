@@ -14,9 +14,9 @@ import os
 data = json.load(sys.stdin)
 
 # Setup variables
-external_url = data.get("host", "git.example.org")
+host = data.get("host", "git.example.org")
 
-agent.set_env("EXTERNAL_URL", external_url)
+agent.set_env("HOST", host)
 
 # Write gitlab.rb Config file
 gitlab_config = {
