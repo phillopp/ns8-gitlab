@@ -20,7 +20,7 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-# Configure traefik route for Dokuwiki
+# Configure traefik route for Gitlab
 
 import os
 import sys
@@ -30,8 +30,8 @@ import agent.tasks
 # Talk with agent using file descriptor.
 # Setup configuration from user input.
 host = agent.get_env("HOST")
-h2hs = agent.set_env("HTTP2HTTPS", True)
-le = agent.set_env("LETS_ENCRYPT", True)
+h2hs = agent.get_env("HTTP2HTTPS", True)
+le = agent.get_env("LETS_ENCRYPT", True)
 
 # Find default traefik instance for current node
 default_traefik_id = agent.resolve_agent_id('traefik@node')

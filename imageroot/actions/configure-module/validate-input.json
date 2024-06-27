@@ -32,6 +32,10 @@
             "type": "boolean",
             "title": "HTTP to HTTPS redirection",
             "description": "Redirect all the HTTP requests to HTTPS"
+        },
+        "password": {
+            "type": "string",
+            "description": "Initial Password for Root User"
         }
     }
 }

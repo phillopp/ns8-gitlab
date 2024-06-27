@@ -15,10 +15,16 @@ data = json.load(sys.stdin)
 # Setup variables
 host = data.get("host", "git.example.org")
 
+password = data.get("password", "Nethesis,1234")
+
 agent.set_env("HOST", host)
 
 # Write gitlab.rb Config file
 gitlab_config = {
     "GITLAB_EMAIL_DISPLAY_NAME": "Gitlab auf dem Nethserver",
+    "EXTERNAL_URL": host,
+    "RAILS_ENV": "production",
+    "GITLAB_ROOT_PASSWORD": password
 }
+
 agent.write_envfile('gitlab.env', gitlab_config)

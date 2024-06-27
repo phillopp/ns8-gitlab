@@ -32,6 +32,13 @@
                 :invalid-message="error.host"
                 ref="host"
             ></cv-text-input>
+            <cv-text-input
+                :label="$t('settings.password')"
+                v-model="password"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                :invalid-message="error.password"
+                ref="password"
+            ></cv-text-input>
             <cv-row v-if="error.configureModule">
               <cv-column>
                 <NsInlineNotification
@@ -85,7 +92,8 @@ export default {
         page: "settings",
       },
       urlCheckInterval: null,
-      host: "", // TODO remove
+      host: "",
+      password: "",
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -93,7 +101,8 @@ export default {
       error: {
         getConfiguration: "",
         configureModule: "",
-        host: "", // TODO remove
+        host: "",
+        password: ""
       },
     };
   },
@@ -167,6 +176,7 @@ export default {
       console.log("config", config);
 
       this.host = config.host;
+      this.password = config.password;
 
       // TODO focus first configuration field
       this.focusElement("host");
@@ -231,7 +241,8 @@ export default {
           data: {
             host: this.host,
             http2https: true,
-            lets_encrypt: true
+            lets_encrypt: true,
+            password: this.password
             // TODO configuration fields
           },
           extra: {
