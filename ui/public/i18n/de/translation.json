@@ -15,7 +15,8 @@
         "test_field": "Testfeld",
         "configure_instance": "{instance} konfigurieren",
         "save": "Speichern",
-        "title": "Einstellungen"
+        "title": "Einstellungen",
+        "host": "Host-URL"
     },
     "common": {
         "required": "erforderlich",

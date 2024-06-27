@@ -227,6 +227,9 @@ export default {
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
           data: {
+            host: this.host,
+            http2https: true,
+            lets_encrypt: true
             // TODO configuration fields
           },
           extra: {
