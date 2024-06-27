@@ -14,7 +14,7 @@ import os
 data = json.load(sys.stdin)
 
 # Setup variables
-external_url = date.get("host", "git.example.org")
+external_url = data.get("host", "git.example.org")
 
 agent.set_env("EXTERNAL_URL", external_url)
 

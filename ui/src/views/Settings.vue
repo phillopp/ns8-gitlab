@@ -27,7 +27,7 @@
             <cv-text-input
                 :label="$t('settings.host')"
                 v-model="host"
-                :placeholder="$t('settings.host')"
+                :placeholder="git.example.org"
                 :disabled="loading.getConfiguration || loading.configureModule"
                 :invalid-message="error.host"
                 ref="host"
@@ -241,6 +241,7 @@ export default {
           },
         })
       );
+      console.log(res);
       const err = res[0];
 
       if (err) {

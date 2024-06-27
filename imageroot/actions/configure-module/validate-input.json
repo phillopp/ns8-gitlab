@@ -5,11 +5,6 @@
     "description": "Configure dokuwiki",
     "examples": [
         {
-            "wiki_name": "mywiki",
-            "username": "admin",
-            "password": "admin",
-            "email": "admin@test.local",
-            "user_full_name": "Administrator",
             "host": "wiki.nethserver.org",
             "http2https": true,
             "lets_encrypt": true
