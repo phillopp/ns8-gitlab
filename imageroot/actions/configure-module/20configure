@@ -17,11 +17,6 @@ host = data.get("host", "git.example.org")
 
 agent.set_env("HOST", host)
 
-# Make sure everything is saved inside the environment file
-# just before starting systemd unit
-agent.dump_env()
-
-
 # Write gitlab.rb Config file
 gitlab_config = {
     "GITLAB_EMAIL_DISPLAY_NAME": "Gitlab auf dem Nethserver",

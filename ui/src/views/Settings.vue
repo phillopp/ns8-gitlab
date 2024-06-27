@@ -27,7 +27,7 @@
             <cv-text-input
                 :label="$t('settings.host')"
                 v-model="host"
-                :placeholder="git.example.org"
+                placeholder="git.example.org"
                 :disabled="loading.getConfiguration || loading.configureModule"
                 :invalid-message="error.host"
                 ref="host"

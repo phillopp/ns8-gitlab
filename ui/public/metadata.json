@@ -4,7 +4,7 @@
     "en": "GitLab for Nethserver 8",
     "de": "GitLab für Nethserver 8"
   },
-  "categories": [],
+  "categories": ["collaboration"],
   "authors": [
     {
       "name": "Philip Falliano",
