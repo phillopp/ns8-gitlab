@@ -24,9 +24,11 @@ ExecStart=/usr/bin/podman run \
     --cgroups=no-conmon \
     --replace --name=gitlab \
     --publish=127.0.0.1:${TCP_PORT}:80 \
-    --env GITLAB_OMNIBUS_CONFIG="from_file('/nethserver_config.rb')" \
-    -v %S/state/gitlab.rb:/nethserver_config:ro,Z \
     --shm-size 256m \
+    -v %S/state/gitlab.rb:/etc/gitlab/gitlab.rb:ro,Z \
+    --volume gitlab-config:/etc/gitlab:Z \
+    --volume gitlab-data:/var/opt/gitlab:Z \
+    --volume gitlab-logs:/var/log/gitlab:Z \
     ${GITLAB_CE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/gitlab.ctr-id -t 10
 ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/gitlab.ctr-id
