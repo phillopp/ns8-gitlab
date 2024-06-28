@@ -14,7 +14,7 @@ import agent.tasks
 data = json.load(sys.stdin)
 
 # Setup variables
-host = data.get("host", "git.example.org")
+host = data.get("host")
 
 password = data.get("password", "Nethesis,1234")
 
@@ -51,3 +51,47 @@ gitlab_config = {
 }
 
 agent.write_envfile('gitlab.env', gitlab_config)
+
+# Write gitlab.rb Config file
+gitlab_config = {
+    "external_url": host,
+    "gitlab_rails['ldap_enabled']": True,
+    "gitlab_rails['ldap_servers']": f'''{{
+  'nethserver' => {{
+    'label' => 'LDAP',
+    'host' =>  '10.5.4.1',
+    'port' => 636,
+    'uid' => 'sAMAccountName',
+    'bind_dn' => 'ldapservice@ad.wohnbau-rm.de',
+    'password' => 'UT,PA+Zk3WE6ULWk8f-I,-mfVUvuav9E',
+    'encryption' => 'simple_tls',
+    'verify_certificates' => false,
+    'timeout' => 10,
+    'active_directory' => true,
+    #'user_filter' => '(employeeType=developer)',
+    'base' => 'DC=ad,DC=wohnbau-rm,DC=de',
+    'lowercase_usernames' => 'false',
+    'retry_empty_result_with_codes' => [80],
+    'allow_username_or_email_login' => true,
+    'block_auto_created_users' => false
+  }}
+}}'''
+}
+
+
+file_path = 'gitlab.rb'
+
+entries = [ek + " = " + str(ev) for ek, ev in gitlab_config.items()]
+entries.sort()
+payload = "\n".join(entries) + "\n"
+tmpfile = ".{0}-{1!s}.tmp".format(os.path.basename(file_path), os.getpid())
+
+bdir = os.path.dirname(file_path) # Base directory
+if bdir:
+    tmpfile = bdir + '/' + tmpfile # Prepend the base directory
+else:
+    pass # File is in the current working directory
+
+with open(tmpfile, 'w') as ofile:
+    ofile.write(payload)
+os.rename(tmpfile, file_path)
