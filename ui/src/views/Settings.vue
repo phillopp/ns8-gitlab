@@ -39,6 +39,29 @@
                 :invalid-message="error.password"
                 ref="password"
             ></cv-text-input>
+            <NsComboBox
+              v-if="already_set"
+              v-model.trim="ldap_domain"
+              :autoFilter="true"
+              :autoHighlight="true"
+              :title="$t('settings.ldap_domain')"
+              :label="$t('settings.choose_ldap_domain')"
+              :options="ldap_domain_list"
+              :userInputLabel="core.$t('common.user_input_l')"
+              :acceptUserInput="false"
+              :showItemType="true"
+              :invalid-message="$t(error.ldap_domain)"
+              :disabled="loading.getConfiguration || loading.configureModule"
+              tooltipAlignment="start"
+              tooltipDirection="top"
+              ref="ldap_domain"
+            >
+              <template slot="tooltip">
+                {{
+                  $t("settings.choose_the_ldap_domain_to_authenticate_users")
+                }}
+              </template>
+            </NsComboBox>
             <cv-row v-if="error.configureModule">
               <cv-column>
                 <NsInlineNotification
@@ -94,6 +117,8 @@ export default {
       urlCheckInterval: null,
       host: "",
       password: "",
+      ldap_domain: "",
+      ldap_domain_list: [],
       loading: {
         getConfiguration: false,
         configureModule: false,
@@ -102,7 +127,9 @@ export default {
         getConfiguration: "",
         configureModule: "",
         host: "",
-        password: ""
+        password: "",
+        ldap_domain: "",
+        ldap_domain_list: ""
       },
     };
   },
@@ -177,6 +204,8 @@ export default {
 
       this.host = config.host;
       this.password = config.password;
+      this.ldap_domain = config.ldap_domain;
+      this.ldap_domain_list = config.ldap_domain_list;
 
       // TODO focus first configuration field
       this.focusElement("host");

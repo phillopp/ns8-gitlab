@@ -9,6 +9,7 @@ import json
 import sys
 import agent
 import os
+from agent.ldapproxy import Ldapproxy
 
 config = {}
 
@@ -16,5 +17,17 @@ env = f'module/{os.environ["MODULE_ID"]}/environment'
 rdb = agent.redis_connect()
 config["host"] =  rdb.hget(env, "HOST")
 config["lets_encrypt"] =  rdb.hget(env, "LETS_ENCRYPT") == "True"
+
+lp = Ldapproxy()
+domains = []
+for key in lp.get_domains_list():
+    domains.append({
+        "name": key,
+        "label": key,
+        "value": key,
+    })
+
+config['ldap_domain_list'] = domains
+config['ldap_domain'] = rdb.hget(env, "LDAP_DOMAIN")
 
 json.dump(config, fp=sys.stdout)
