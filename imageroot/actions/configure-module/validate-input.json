@@ -36,6 +36,10 @@
         "password": {
             "type": "string",
             "description": "Initial Password for Root User"
+        },
+        "ldap_domain": {
+            "type": "string",
+            "description": "LDAP-Domain for authentification"
         }
     }
 }

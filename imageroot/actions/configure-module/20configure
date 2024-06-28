@@ -15,8 +15,8 @@ data = json.load(sys.stdin)
 
 # Setup variables
 host = data.get("host")
-
 password = data.get("password", "Nethesis,1234")
+ldap_domain = data.get("ldap_domain")
 
 if agent.http_route_in_use(domain=host):
     agent.set_status('validation-failed')
@@ -24,6 +24,7 @@ if agent.http_route_in_use(domain=host):
     sys.exit(2)
 
 agent.set_env("HOST", host)
+agent.set_env("LDAP_DOMAIN", ldap_domain)
 
 default_traefik_id = agent.resolve_agent_id('traefik@node')
 if default_traefik_id is None:
@@ -59,17 +60,16 @@ gitlab_config = {
     "gitlab_rails['ldap_servers']": f'''{{
   'nethserver' => {{
     'label' => 'LDAP',
-    'host' =>  '10.5.4.1',
+    'host' =>  '',
     'port' => 636,
     'uid' => 'sAMAccountName',
-    'bind_dn' => 'ldapservice@ad.wohnbau-rm.de',
-    'password' => 'UT,PA+Zk3WE6ULWk8f-I,-mfVUvuav9E',
+    'bind_dn' => '',
+    'password' => '',
     'encryption' => 'simple_tls',
     'verify_certificates' => false,
     'timeout' => 10,
     'active_directory' => true,
-    #'user_filter' => '(employeeType=developer)',
-    'base' => 'DC=ad,DC=wohnbau-rm,DC=de',
+    'base' => '',
     'lowercase_usernames' => 'false',
     'retry_empty_result_with_codes' => [80],
     'allow_username_or_email_login' => true,
