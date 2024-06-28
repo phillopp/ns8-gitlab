@@ -16,7 +16,8 @@
         "configure_instance": "{instance} konfigurieren",
         "save": "Speichern",
         "title": "Einstellungen",
-        "host": "Host-URL"
+        "host": "Host-URL",
+        "password": "Passwort"
     },
     "common": {
         "required": "erforderlich",

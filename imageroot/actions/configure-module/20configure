@@ -7,6 +7,7 @@
 
 import json
 import sys
+import os
 import agent
 import agent.tasks
 
@@ -17,7 +18,29 @@ host = data.get("host", "git.example.org")
 
 password = data.get("password", "Nethesis,1234")
 
+if agent.http_route_in_use(domain=host):
+    agent.set_status('validation-failed')
+    json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
+    sys.exit(2)
+
 agent.set_env("HOST", host)
+
+default_traefik_id = agent.resolve_agent_id('traefik@node')
+if default_traefik_id is None:
+    sys.exit(2)
+
+# Configure traefik virtual host
+response = agent.tasks.run(
+    agent_id=default_traefik_id,
+    action='set-route',
+    data={
+        'instance': os.environ['MODULE_ID'],
+        'url': f'http://127.0.0.1:{os.environ["TCP_PORT"]}',
+        'host': host,
+        'lets_encrypt': True,
+        'http2https': True
+    },
+)
 
 # Write gitlab.rb Config file
 gitlab_config = {
