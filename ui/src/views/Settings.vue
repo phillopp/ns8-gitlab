@@ -270,7 +270,7 @@ export default {
             host: this.host,
             http2https: true,
             lets_encrypt: true,
-            password: this.password
+            password: this.password,
             ldap_domain: this.ldap_domain
             // TODO configuration fields
           },
