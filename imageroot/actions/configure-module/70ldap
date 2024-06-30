@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import sys
+import agent
+from agent.ldapproxy import Ldapproxy
+
+cdomain = agent.get_env("LDAP_DOMAIN")
+host = agent.get_env("HOST")
+
+if not cdomain:
+    sys.exit(0)
+
+lp = Ldapproxy()
+domain = lp.get_domain(cdomain)
+
+if not domain:
+    print(f'Domain not found: {cdomain}', file=sys.stderr)
+    sys.exit(0)
+
+# Bind the new domain, overriding previous values (unbind)
+agent.bind_user_domains([cdomain])
+
+if domain["schema"] == "ad":
+    uid = "sAMAccountName"
+    ad = "true"
+else:
+    uid = "uid"
+    ad = "false"
+
+# Write gitlab.rb Config file
+gitlab_config = {
+    "external_url": host,
+    "gitlab_rails['ldap_enabled']": True,
+    "gitlab_rails['ldap_servers']": f'''{{
+  'nethserver' => {{
+    'label' => 'LDAP',
+    'host' =>  '10.0.2.2',
+    'port' => {domain["port"]},
+    'uid' => '{uid}',
+    'bind_dn' => '{domain["bind_dn"]}',
+    'password' => '{domain["bind_password"]}',
+    'encryption' => 'simple_tls',
+    'verify_certificates' => false,
+    'timeout' => 10,
+    'active_directory' => {ad},
+    'base' => '{domain["base_dn"]}',
+    'lowercase_usernames' => true,
+    'retry_empty_result_with_codes' => [80],
+    'allow_username_or_email_login' => true,
+    'block_auto_created_users' => false
+  }}
+}}'''
+}
+
+file_path = 'gitlab.rb'
+
+entries = [ek + " = " + str(ev) for ek, ev in gitlab_config.items()]
+entries.sort()
+payload = "\n".join(entries) + "\n"
+tmpfile = ".{0}-{1!s}.tmp".format(os.path.basename(file_path), os.getpid())
+
+bdir = os.path.dirname(file_path) # Base directory
+if bdir:
+    tmpfile = bdir + '/' + tmpfile # Prepend the base directory
+else:
+    pass # File is in the current working directory
+
+with open(tmpfile, 'w') as ofile:
+    ofile.write(payload)
+os.rename(tmpfile, file_path)
