@@ -40,6 +40,12 @@
         "ldap_domain": {
             "type": "string",
             "description": "LDAP-Domain for authentification"
+        },
+        "registry_host": {
+            "type": "string",
+            "description": "Host name for gitlab registry, like 'registry.nethserver.org'",
+            "format": "hostname",
+            "pattern": "\\."
         }
     }
 }

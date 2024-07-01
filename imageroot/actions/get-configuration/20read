@@ -29,5 +29,6 @@ for key in lp.get_domains_list():
 
 config['ldap_domain_list'] = domains
 config['ldap_domain'] = rdb.hget(env, "LDAP_DOMAIN")
+config['password'] = rdb.hget(env, "")
 
 json.dump(config, fp=sys.stdout)

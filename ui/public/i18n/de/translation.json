@@ -12,12 +12,15 @@
         "validation_error": "Fehlerhafte Prüfung"
     },
     "settings": {
-        "test_field": "Testfeld",
         "configure_instance": "{instance} konfigurieren",
         "save": "Speichern",
         "title": "Einstellungen",
         "host": "Host-URL",
-        "password": "Passwort"
+        "password": "Passwort",
+        "ldap_domain": "LDAP-Domäne",
+        "choose_ldap_domain": "LDAP-Domäne wählen",
+        "choose_the_ldap_domain_to_authenticate_users": "Wählen Sie eine LDAP-Domäne aus, mit welcher sich Benutzer authentifizieren können.",
+        "registryHost": "Registry-URL"
     },
     "common": {
         "required": "erforderlich",
