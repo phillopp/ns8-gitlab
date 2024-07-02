@@ -12,7 +12,5 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
-touch smarthost.env
-
 systemctl --user enable --now gitlab.service
 systemctl --user restart gitlab.service

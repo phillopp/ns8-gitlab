@@ -15,8 +15,8 @@ data = json.load(sys.stdin)
 
 # Setup variables
 host = data.get("host")
-password = data.get("password", "Nethesis,1234")
 ldap_domain = data.get("ldap_domain")
+registry_host = data.get("registry_host")
 
 #if agent.http_route_in_use(domain=host):
 #    agent.set_status('validation-failed')
@@ -25,7 +25,7 @@ ldap_domain = data.get("ldap_domain")
 
 agent.set_env("HOST", host)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
-agent.set_env("GITLAB_ROOT_PASSWORD", password)
+agent.set_env("REGISTRY_HOST", registry_host)
 
 default_traefik_id = agent.resolve_agent_id('traefik@node')
 if default_traefik_id is None:
@@ -43,13 +43,3 @@ response = agent.tasks.run(
         'http2https': True
     },
 )
-
-# Write gitlab.rb Config file
-gitlab_config = {
-    "GITLAB_EMAIL_DISPLAY_NAME": "Gitlab auf dem Nethserver",
-    "EXTERNAL_URL": host,
-    "RAILS_ENV": "production",
-    "GITLAB_ROOT_PASSWORD": password
-}
-
-agent.write_envfile('gitlab.env', gitlab_config)
