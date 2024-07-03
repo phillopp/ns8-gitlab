@@ -43,3 +43,7 @@ response = agent.tasks.run(
         'http2https': True
     },
 )
+
+# Make sure everything is saved inside the environment file
+# just before starting systemd unit
+agent.dump_env()

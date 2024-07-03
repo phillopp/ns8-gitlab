@@ -19,6 +19,7 @@ ExecStartPre=/bin/rm -f %t/gitlab.pid %t/gitlab.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run \
     --detach \
+    --name gitlab \
     --conmon-pidfile=%t/gitlab.pid \
     --cidfile=%t/gitlab.ctr-id \
     --cgroups=no-conmon \
