@@ -33,8 +33,8 @@ def dict_to_gitlab_rb(config, indent=0):
 
     return lines
 
-cdomain = agent.get_env("LDAP_DOMAIN")
-host = agent.get_env("HOST")
+cdomain = os.environ['LDAP_DOMAIN']
+host = os.environ['HOST']
 
 gitlab_config = {
     'external_url': host,
