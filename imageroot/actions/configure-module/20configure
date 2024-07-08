@@ -18,10 +18,10 @@ host = data.get("host")
 ldap_domain = data.get("ldap_domain")
 registry_host = data.get("registry_host")
 
-#if agent.http_route_in_use(domain=host):
-#    agent.set_status('validation-failed')
-#    json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
-#    sys.exit(2)
+if host != agent.get_env("HOST") and agent.http_route_in_use(domain=host):
+    agent.set_status('validation-failed')
+    json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
+    sys.exit(2)
 
 agent.set_env("HOST", host)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
@@ -43,7 +43,3 @@ response = agent.tasks.run(
         'http2https': True
     },
 )
-
-# Make sure everything is saved inside the environment file
-# just before starting systemd unit
-agent.dump_env()

@@ -12,9 +12,6 @@ import os
 import agent
 from agent.ldapproxy import Ldapproxy
 
-cdomain = agent.get_env("LDAP_DOMAIN")
-host = agent.get_env("HOST")
-
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
     indent_space = '  ' * indent
@@ -36,13 +33,13 @@ def dict_to_gitlab_rb(config, indent=0):
 
     return lines
 
-gitlab_config = {
-    'external_url': agent.get_env("HOST"),
-    # NGINX-Proxy setting
-}
-
 cdomain = agent.get_env("LDAP_DOMAIN")
 host = agent.get_env("HOST")
+
+gitlab_config = {
+    'external_url': host,
+    # NGINX-Proxy setting
+}
 
 if not cdomain:
     sys.exit(0)
@@ -77,13 +74,7 @@ tmpfile = ".{0}-{1!s}.tmp".format(os.path.basename(file_path), os.getpid())
 bdir = os.path.dirname(file_path) # Base directory
 if bdir:
     tmpfile = bdir + '/' + tmpfile # Prepend the base directory
-else:
-    pass # File is in the current working directory
 
 with open(tmpfile, 'w') as ofile:
     ofile.write(payload)
 os.rename(tmpfile, file_path)
-
-# Make sure everything is saved inside the environment file
-# just before starting systemd unit
-agent.dump_env()
