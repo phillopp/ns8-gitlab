@@ -10,7 +10,6 @@
 import sys
 import os
 import agent
-from agent.ldapproxy import Ldapproxy
 
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
@@ -44,27 +43,26 @@ gitlab_config = {
 if not cdomain:
     sys.exit(0)
 
-lp = Ldapproxy()
-domain = lp.get_domain(cdomain)
+agent.bind_user_domains([cdomain])
 
-if domain:
-    agent.bind_user_domains([cdomain])
+#if domain["schema"] == "ad":
+#    uid = "sAMAccountName"
+#    ad = "true"
+#else:
+#    uid = "uid"
+#    ad = "false"
 
-    if domain["schema"] == "ad":
-        uid = "sAMAccountName"
-        ad = "true"
-    else:
-        uid = "uid"
-        ad = "false"
+uid = "sAMAccountName"
+ad = "true"
 
-    gitlab_config['gitlab_rails'] = {
-        'time_zone': 'Europe/Berlin',
-        'ldap_enabled': 'true',
-        'ldap_servers': {
-            'ad': ad,
-            'uid': uid
-        }
+gitlab_config['gitlab_rails'] = {
+    'time_zone': 'Europe/Berlin',
+    'ldap_enabled': 'true',
+    'ldap_servers': {
+        'ad': ad,
+        'uid': uid
     }
+}
 
 file_path = 'gitlab.rb'
 payload = dict_to_gitlab_rb(gitlab_config)

@@ -43,3 +43,5 @@ response = agent.tasks.run(
         'http2https': True
     },
 )
+
+agent.assert_exp(response['exit_code'] == 0)
