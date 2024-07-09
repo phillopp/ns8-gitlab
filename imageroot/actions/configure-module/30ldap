@@ -76,3 +76,5 @@ if bdir:
 with open(tmpfile, 'w') as ofile:
     ofile.write(payload)
 os.rename(tmpfile, file_path)
+
+agent.set_env("LDAP_TEST", "END")
