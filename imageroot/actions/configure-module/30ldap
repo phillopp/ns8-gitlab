@@ -11,7 +11,7 @@ import sys
 import os
 import agent
 
-agent.set_env("LDAP_BEGIN", "END")
+agent.set_env("LDAP_START", "EXECUTED")
 
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
@@ -79,4 +79,4 @@ with open(tmpfile, 'w') as ofile:
     ofile.write(payload)
 os.rename(tmpfile, file_path)
 
-agent.set_env("LDAP_TEST", "END")
+agent.set_env("LDAP_END", "EXECUTED")
