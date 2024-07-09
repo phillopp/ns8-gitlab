@@ -11,6 +11,8 @@ import sys
 import os
 import agent
 
+agent.set_env("LDAP_BEGIN", "END")
+
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
     indent_space = '  ' * indent
