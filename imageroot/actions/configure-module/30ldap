@@ -10,8 +10,7 @@
 import sys
 import os
 import agent
-
-agent.set_env("LDAP_START", "EXECUTED")
+from agent.ldapproxy import Ldapproxy
 
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
@@ -20,32 +19,37 @@ def dict_to_gitlab_rb(config, indent=0):
     for key, value in config.items():
         if isinstance(value, dict):
             if indent == 0:
-                lines.append(f"{indent_space}{key} = {{")
+                lines.append(f"{indent_space}gitlab_rails['{key}'] = {{")
             else:
                 lines.append(f"{indent_space}'{key}' => {{")
             lines.extend(dict_to_gitlab_rb(value, indent + 1))
             lines.append(f"{indent_space}}}")
         elif isinstance(value, bool):
-            lines.append(f"{indent_space}{key} = {str(value).lower()}")
+            lines.append(f"{indent_space}'{key}' => {str(value).lower()},")
         elif isinstance(value, str):
-            lines.append(f"{indent_space}{key} = '{value}'")
+            lines.append(f"{indent_space}'{key}' => '{value}',")
+        elif indent == 0:
+            lines.append(f"{indent_space}gitlab_rails['{key}'] = {value}")
         else:
-            lines.append(f"{indent_space}{key} = {value}")
+            lines.append(f"{indent_space}'{key}' => {value},")
 
     return lines
 
 cdomain = os.environ['LDAP_DOMAIN']
 host = os.environ['HOST']
 
-gitlab_config = {
-    'external_url': host,
-    # NGINX-Proxy setting
-}
+gitlab_conf = []
+#gitlab_conf.append(f"external_url {host}")
+gitlab_config = {}
 
 if not cdomain:
     sys.exit(0)
 
 agent.bind_user_domains([cdomain])
+
+gitlab_conf.append("nginx['proxy_set_headers'] = {")
+gitlab_conf.append('  "X-Forwarded-Proto" => "https"')
+gitlab_conf.append("}")
 
 #if domain["schema"] == "ad":
 #    uid = "sAMAccountName"
@@ -54,20 +58,44 @@ agent.bind_user_domains([cdomain])
 #    uid = "uid"
 #    ad = "false"
 
-uid = "sAMAccountName"
-ad = "true"
+udomname = os.environ.get('LDAP_DOMAIN','')
 
-gitlab_config['gitlab_rails'] = {
-    'time_zone': 'Europe/Berlin',
-    'ldap_enabled': 'true',
-    'ldap_servers': {
-        'ad': ad,
-        'uid': uid
+if udomname:
+
+    try:
+        odom = Ldapproxy().get_domain(udomname)
+        'host' in odom # Throw exception if odom is None
+    except:
+        # During restore the domain could be unavailable. Use a fallback
+        # configuration, pointing to nowhere, just to set the variables.
+        # Once the domain becomes available, the event will fix them.
+        sys.exit(2)
+    
+    gitlab_conf.append(f"gitlab_rails['ldap_enabled'] = true")
+    #gitlab_config['ldap_enabled'] = True
+
+    uid = 'uid'
+    ad = False
+    if odom['schema'] == 'ad':
+        uid = "sAMAccountName"
+        ad = True
+
+    gitlab_config['ldap_servers'] = {
+        'main': {
+            'label': 'LDAP',
+            'host': '10.0.2.2', # special podman IP
+            'bind_dn': odom['bind_dn'],
+            'password': odom['bind_password'],
+            'uid': uid,
+            'active_directory': ad,
+            'port': odom['port'],
+            'base': odom['base_dn'],
+            'block_auto_created_users': False
+        }
     }
-}
 
 file_path = 'gitlab.rb'
-payload = dict_to_gitlab_rb(gitlab_config)
+payload = gitlab_conf + dict_to_gitlab_rb(gitlab_config)
 
 tmpfile = ".{0}-{1!s}.tmp".format(os.path.basename(file_path), os.getpid())
 
@@ -76,7 +104,6 @@ if bdir:
     tmpfile = bdir + '/' + tmpfile # Prepend the base directory
 
 with open(tmpfile, 'w') as ofile:
-    ofile.write(payload)
+    for line in payload:
+        ofile.write(f"{line}\n")
 os.rename(tmpfile, file_path)
-
-agent.set_env("LDAP_END", "EXECUTED")

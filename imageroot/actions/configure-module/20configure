@@ -24,6 +24,7 @@ if host != os.environ['HOST'] and agent.http_route_in_use(domain=host):
     sys.exit(2)
 
 agent.set_env("HOST", host)
+agent.set_env("EXTERNAL_URL", host)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
 agent.set_env("REGISTRY_HOST", registry_host)
 
