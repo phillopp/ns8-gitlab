@@ -90,7 +90,10 @@ if udomname:
             'active_directory': ad,
             'port': odom['port'],
             'base': odom['base_dn'],
-            'block_auto_created_users': False
+            'block_auto_created_users': False,
+            'encryption': 'simple_tls',
+            'verify_certificates': False,
+            'block_auto_created_user': False
         }
     }
 

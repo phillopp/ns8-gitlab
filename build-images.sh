@@ -8,7 +8,7 @@
 # Terminate on error
 set -e
 
-GITLAB_VERSION=17.1.1
+GITLAB_VERSION=17.1.2
 
 # Prepare variables for later use
 images=()
