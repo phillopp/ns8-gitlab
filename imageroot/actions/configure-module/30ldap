@@ -47,8 +47,13 @@ if not cdomain:
 
 agent.bind_user_domains([cdomain])
 
+gitlab_conf.append(f"external_url 'https://{host}'")
+gitlab_conf.append("nginx['listen_https'] = false")
+gitlab_conf.append("nginx['listen_port'] = 80")
+gitlab_conf.append("nginx['proxy_set_headers'] = {")
 gitlab_conf.append("nginx['proxy_set_headers'] = {")
 gitlab_conf.append('  "X-Forwarded-Proto" => "https"')
+gitlab_conf.append('  "X-Forwarded-Ssl" => "on",')
 gitlab_conf.append("}")
 
 #if domain["schema"] == "ad":
@@ -72,13 +77,15 @@ if udomname:
         sys.exit(2)
     
     gitlab_conf.append(f"gitlab_rails['ldap_enabled'] = true")
-    #gitlab_config['ldap_enabled'] = True
 
     uid = 'uid'
     ad = False
     if odom['schema'] == 'ad':
         uid = "sAMAccountName"
         ad = True
+    else:
+        uid = 'uid'
+        ad = False
 
     gitlab_config['ldap_servers'] = {
         'main': {
