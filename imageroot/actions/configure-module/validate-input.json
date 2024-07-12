@@ -33,6 +33,10 @@
             "title": "HTTP to HTTPS redirection",
             "description": "Redirect all the HTTP requests to HTTPS"
         },
+        "password": {
+            "type": "string",
+            "description": "LDAP-Domain for authentification"
+        },
         "ldap_domain": {
             "type": "string",
             "description": "LDAP-Domain for authentification"

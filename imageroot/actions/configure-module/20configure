@@ -17,6 +17,7 @@ data = json.load(sys.stdin)
 host = data.get("host")
 ldap_domain = data.get("ldap_domain")
 registry_host = data.get("registry_host")
+initial_password = data.get("password")
 
 if host != os.environ['HOST'] and agent.http_route_in_use(domain=host):
     agent.set_status('validation-failed')
@@ -24,25 +25,12 @@ if host != os.environ['HOST'] and agent.http_route_in_use(domain=host):
     sys.exit(2)
 
 agent.set_env("HOST", host)
-agent.set_env("EXTERNAL_URL", host)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
-agent.set_env("REGISTRY_HOST", registry_host)
+agent.set_env("GITLAB_REGISTRY_HOST", registry_host)
+agent.set_env("GITLAB_INITIAL_PASSWORD", initial_password)
 
-default_traefik_id = agent.resolve_agent_id('traefik@node')
-if default_traefik_id is None:
-    sys.exit(2)
-
-# Configure traefik virtual host
-response = agent.tasks.run(
-    agent_id=default_traefik_id,
-    action='set-route',
-    data={
-        'instance': os.environ['MODULE_ID'],
-        'url': f'http://127.0.0.1:{os.environ["TCP_PORT"]}',
-        'host': host,
-        'lets_encrypt': True,
-        'http2https': True
-    },
-)
-
-agent.assert_exp(response['exit_code'] == 0)
+config = {
+   "GITLAB_INITIAL_PASSWORD": host,
+   "EXTERNAL_URL": initial_password
+}
+agent.write_envfile('gitlab.env', config)
