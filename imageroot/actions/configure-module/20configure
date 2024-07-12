@@ -31,6 +31,7 @@ if host != os.environ['HOST'] and agent.http_route_in_use(domain=host):
 
 config = {
    "GITLAB_INITIAL_PASSWORD": host,
-   "EXTERNAL_URL": initial_password
+   "EXTERNAL_URL": initial_password,
+   "REGISTRY_EXTERNAL_URL": registry_host
 }
 agent.write_envfile('gitlab.env', config)
