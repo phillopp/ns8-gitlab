@@ -19,15 +19,15 @@ ldap_domain = data.get("ldap_domain")
 registry_host = data.get("registry_host")
 initial_password = data.get("password")
 
+if (not os.environ['HOST'] or host != os.environ['HOST']) and agent.http_route_in_use(domain=host):
+    agent.set_status('validation-failed')
+    json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
+    sys.exit(2)
+
 agent.set_env("HOST", host)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
 agent.set_env("GITLAB_REGISTRY_HOST", registry_host)
 agent.set_env("GITLAB_INITIAL_PASSWORD", initial_password)
-
-if host != os.environ['HOST'] and agent.http_route_in_use(domain=host):
-    agent.set_status('validation-failed')
-    json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
-    sys.exit(2)
 
 config = {
    "GITLAB_INITIAL_PASSWORD": host,
