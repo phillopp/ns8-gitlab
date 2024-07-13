@@ -15,7 +15,7 @@ data = json.load(sys.stdin)
 
 # Setup variables
 host = os.environ.get('HOST','')
-host = os.environ.get('GITLAB_REGISTRY_HOST','')
+registry_url = os.environ.get('GITLAB_REGISTRY_HOST','')
 
 default_traefik_id = agent.resolve_agent_id('traefik@node')
 if default_traefik_id is None:
