@@ -33,3 +33,4 @@ response = agent.tasks.run(
 
 # Check if traefik configuration has been successfull
 agent.assert_exp(response['exit_code'] == 0)
+agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))
