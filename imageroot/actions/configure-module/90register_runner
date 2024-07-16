@@ -7,8 +7,10 @@
 
 # If the control reaches this step, the service can be enabled and started
 
-set -e
+#set -e
 
 # Redirect any output to the journal (stderr)
-exec 1>&2
+#exec 1>&2
 
+#execute in gitlab-app: gitlab-rails runner -e production "puts Gitlab::CurrentSettings.current_application_settings.runners_registration_token"
+#execute in gitlab-runner: https://docs.gitlab.com/runner/register/index.html

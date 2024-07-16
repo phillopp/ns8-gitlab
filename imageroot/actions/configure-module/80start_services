@@ -13,8 +13,8 @@ set -e
 exec 1>&2
 
 # Enable podman socket for gitlab runner
-systemctl --user enable --now podman.socket
-systemctl --user restart podman.socker
+#systemctl --user enable --now podman.socket
+#systemctl --user restart podman.socket
 
-systemctl --user enable --now gitlab.service gitlab-app.service gitlab-runner.service
-systemctl --user restart gitlab.service gitlab-app.service gitlab-runner.service
+systemctl --user enable --now gitlab.service gitlab-app.service # gitlab-runner.service
+systemctl --user restart gitlab.service gitlab-app.service # gitlab-runner.service
