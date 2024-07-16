@@ -51,20 +51,4 @@ if registry_url:
     )
 
 agent.assert_exp(response['exit_code'] == 0)
-
-if registry_url:
-    # Configure traefik virtual host
-    response = agent.tasks.run(
-        agent_id=default_traefik_id,
-        action='set-route',
-        data={
-            'instance': os.environ['MODULE_ID']+'-registry',
-            'url': f'http://127.0.0.1:{os.environ["TCP_PORT"]}',
-            'host': registry_url,
-            'lets_encrypt': True,
-            'http2https': True
-        },
-    )
-
-agent.assert_exp(response['exit_code'] == 0)
 agent.assert_exp(agent.add_public_service(os.environ['MODULE_ID'], ["5050/tcp"]))

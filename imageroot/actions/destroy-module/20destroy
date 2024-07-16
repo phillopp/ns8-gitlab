@@ -33,7 +33,7 @@ response = agent.tasks.run(
 
 # Check if traefik configuration has been successfull
 agent.assert_exp(response['exit_code'] == 0)
-agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))
+
 if os.environ.get('GITLAB_REGISTRY_HOST'):
     response = agent.tasks.run(
         agent_id=default_traefik_id,
@@ -42,3 +42,6 @@ if os.environ.get('GITLAB_REGISTRY_HOST'):
             'instance': os.environ['MODULE_ID']+'-registry'
         },
     )
+    agent.assert_exp(response['exit_code'] == 0)
+
+agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))
