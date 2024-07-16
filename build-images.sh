@@ -9,6 +9,7 @@
 set -e
 
 GITLAB_VERSION=17.0.2
+GITLAB_RUNNER_VERSION="latest"
 
 # Prepare variables for later use
 images=()
@@ -41,7 +42,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@any:routeadm cluster:accountconsumer" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/gitlab/gitlab-ce:${GITLAB_VERSION}-ce.0" \
+    --label="org.nethserver.images=docker.io/gitlab/gitlab-ce:${GITLAB_VERSION}-ce.0 docker.io/gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION}" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"

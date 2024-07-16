@@ -33,3 +33,12 @@ response = agent.tasks.run(
 
 # Check if traefik configuration has been successfull
 agent.assert_exp(response['exit_code'] == 0)
+
+if os.environ.get('GITLAB_REGISTRY_HOST'):
+    response = agent.tasks.run(
+        agent_id=default_traefik_id,
+        action='delete-route',
+        data={
+            'instance': os.environ['MODULE_ID']+'-registry'
+        },
+    )

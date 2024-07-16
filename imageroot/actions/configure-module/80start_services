@@ -12,5 +12,9 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
-systemctl --user enable --now gitlab.service
-systemctl --user restart gitlab.service
+# Enable podman socket for gitlab runner
+systemctl --user enable --now podman.socket
+systemctl --user restart podman.socker
+
+systemctl --user enable --now gitlab.service gitlab-app.service gitlab-runner.service
+systemctl --user restart gitlab.service gitlab-app.service gitlab-runner.service
