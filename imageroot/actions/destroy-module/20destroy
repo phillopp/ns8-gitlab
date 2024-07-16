@@ -43,5 +43,3 @@ if os.environ.get('GITLAB_REGISTRY_HOST'):
         },
     )
     agent.assert_exp(response['exit_code'] == 0)
-
-agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))

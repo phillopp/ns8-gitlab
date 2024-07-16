@@ -18,6 +18,7 @@ host = data.get("host")
 ldap_domain = data.get("ldap_domain")
 registry_host = data.get("registry_host")
 initial_password = data.get("password")
+server_port, registry_port = os.environ['TCP_PORTS'].split(",")
 
 if (not os.environ['HOST'] or host != os.environ['HOST']) and agent.http_route_in_use(domain=host):
     agent.set_status('validation-failed')
@@ -27,13 +28,8 @@ if (not os.environ['HOST'] or host != os.environ['HOST']) and agent.http_route_i
 agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))
 
 agent.set_env("HOST", host)
+agent.set_env("GITLAB_NGINX_PORT", server_port)
 agent.set_env("LDAP_DOMAIN", ldap_domain)
 agent.set_env("GITLAB_REGISTRY_HOST", registry_host)
+agent.set_env("GITLAB_REGISTRY_PORT", registry_port)
 agent.set_env("GITLAB_INITIAL_PASSWORD", initial_password)
-
-config = {
-   "GITLAB_INITIAL_PASSWORD": host,
-   "EXTERNAL_URL": initial_password,
-   "REGISTRY_EXTERNAL_URL": registry_host
-}
-agent.write_envfile('gitlab.env', config)

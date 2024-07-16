@@ -27,7 +27,7 @@ response = agent.tasks.run(
     action='set-route',
     data={
         'instance': os.environ['MODULE_ID'],
-        'url': f'http://127.0.0.1:{os.environ["TCP_PORT"]}',
+        'url': f'http://127.0.0.1:{os.environ["GITLAB_NGINX_PORT"]}',
         'host': host,
         'lets_encrypt': True,
         'http2https': True
@@ -43,7 +43,7 @@ if registry_url:
         action='set-route',
         data={
             'instance': os.environ['MODULE_ID']+'-registry',
-            'url': f'http://127.0.0.1:{os.environ["TCP_PORT"]}',
+            'url': f'http://127.0.0.1:{os.environ["GITLAB_REGISTRY_PORT"]}',
             'host': registry_url,
             'lets_encrypt': True,
             'http2https': True
@@ -51,4 +51,3 @@ if registry_url:
     )
 
 agent.assert_exp(response['exit_code'] == 0)
-agent.assert_exp(agent.add_public_service(os.environ['MODULE_ID'], ["5050/tcp"]))
