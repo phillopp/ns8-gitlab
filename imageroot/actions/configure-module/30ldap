@@ -37,6 +37,7 @@ def dict_to_gitlab_rb(config, indent=0):
 
 cdomain = os.environ['LDAP_DOMAIN']
 host = os.environ['HOST']
+registry_url = os.environ['GITLAB_REGISTRY_HOST']
 
 gitlab_conf = []
 #gitlab_conf.append(f"external_url {host}")
@@ -48,12 +49,12 @@ if not cdomain:
 agent.bind_user_domains([cdomain])
 
 gitlab_conf.append(f"external_url 'https://{host}'")
+gitlab_conf.append(f"registry_external_url 'https://{registry_url}'")
 gitlab_conf.append("nginx['listen_https'] = false")
 gitlab_conf.append("nginx['listen_port'] = 80")
 gitlab_conf.append("nginx['proxy_set_headers'] = {")
-gitlab_conf.append("nginx['proxy_set_headers'] = {")
-gitlab_conf.append('  "X-Forwarded-Proto" => "https"')
-gitlab_conf.append('  "X-Forwarded-Ssl" => "on",')
+gitlab_conf.append('  "X-Forwarded-Proto" => "https",')
+gitlab_conf.append('  "X-Forwarded-Ssl" => "on"')
 gitlab_conf.append("}")
 
 #if domain["schema"] == "ad":

@@ -8,7 +8,7 @@
 # Terminate on error
 set -e
 
-GITLAB_VERSION=17.0.2
+GITLAB_VERSION=17.1.2
 GITLAB_RUNNER_VERSION="latest"
 
 # Prepare variables for later use
@@ -39,7 +39,7 @@ buildah add "${container}" imageroot /imageroot
 buildah add "${container}" ui/dist /ui
 # Setup the entrypoint, ask to reserve one TCP port with the label and set a rootless container
 buildah config --entrypoint=/ \
-    --label="org.nethserver.authorizations=traefik@any:routeadm cluster:accountconsumer" \
+    --label="org.nethserver.authorizations=traefik@any:routeadm cluster:accountconsumer node:fwadm" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
     --label="org.nethserver.images=docker.io/gitlab/gitlab-ce:${GITLAB_VERSION}-ce.0 docker.io/gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION}" \

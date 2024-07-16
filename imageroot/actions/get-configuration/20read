@@ -29,6 +29,6 @@ for key in lp.get_domains_list():
 
 config['ldap_domain_list'] = domains
 config['ldap_domain'] = rdb.hget(env, "LDAP_DOMAIN")
-config['registry_host'] = rdb.hget(env, "REGISTRY_HOST")
+config['registry_host'] = rdb.hget(env, "GITLAB_REGISTRY_HOST")
 
 json.dump(config, fp=sys.stdout)
