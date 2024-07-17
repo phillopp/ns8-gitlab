@@ -20,12 +20,10 @@ registry_host = data.get("registry_host")
 initial_password = data.get("password")
 server_port, registry_port = os.environ['TCP_PORTS'].split(",")
 
-if (not os.environ['HOST'] or host != os.environ['HOST']) and agent.http_route_in_use(domain=host):
+if (not os.environ.get('HOST', False) or host != os.environ['HOST']) and agent.http_route_in_use(domain=host):
     agent.set_status('validation-failed')
     json.dump([{'field':'hostname','parameter':'hostname','value':host,'error':'domain_already_used_in_traefik'}],fp=sys.stdout)
     sys.exit(2)
-
-agent.assert_exp(agent.remove_public_service(os.environ['MODULE_ID']))
 
 agent.set_env("HOST", host)
 agent.set_env("GITLAB_NGINX_PORT", server_port)

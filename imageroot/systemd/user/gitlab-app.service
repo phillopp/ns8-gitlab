@@ -9,6 +9,8 @@
 #
 [Unit]
 Description=GitLab Server
+BindsTo=gitlab.service
+After=gitlab.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -16,7 +18,6 @@ EnvironmentFile=%S/state/environment
 WorkingDirectory=%S/state
 Restart=always
 ExecStartPre=/bin/rm -f %t/gitlab-app.pid %t/gitlab-app.ctr-id
-ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run \
     --detach \
     --name gitlab-app \
@@ -26,7 +27,6 @@ ExecStart=/usr/bin/podman run \
     --pod-id-file %t/gitlab.pod-id \
     --replace \
     --shm-size 256m \
-    --env-file=%S/state/gitlab.env \
     --volume %S/state/gitlab.rb:/etc/gitlab/gitlab.rb:ro,Z \
     --volume gitlab-config:/etc/gitlab:Z \
     --volume gitlab-data:/var/opt/gitlab:Z \

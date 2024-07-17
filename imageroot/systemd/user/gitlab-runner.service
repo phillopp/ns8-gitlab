@@ -9,6 +9,8 @@
 #
 [Unit]
 Description=GitLab Runner
+BindsTo=gitlab.service
+After=gitlab.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n

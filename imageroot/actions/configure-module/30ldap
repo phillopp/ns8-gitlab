@@ -49,7 +49,6 @@ if not cdomain:
 agent.bind_user_domains([cdomain])
 
 gitlab_conf.append(f"external_url 'https://{host}'")
-gitlab_conf.append(f"registry_external_url 'http://{registry_url}'")
 gitlab_conf.append("nginx['listen_https'] = false")
 gitlab_conf.append("nginx['listen_port'] = 80")
 gitlab_conf.append("nginx['proxy_set_headers'] = {")
@@ -57,8 +56,9 @@ gitlab_conf.append('  "X-Forwarded-Proto" => "https",')
 gitlab_conf.append('  "X-Forwarded-Ssl" => "on"')
 gitlab_conf.append("}")
 
+gitlab_conf.append(f"registry_external_url 'https://{registry_url}'")
 gitlab_conf.append("registry_nginx['listen_https'] = false")
-gitlab_conf.append("nginx['listen_port'] = 5050")
+gitlab_conf.append("registry_nginx['listen_port'] = 5050")
 gitlab_conf.append("registry_nginx['proxy_set_headers'] = {")
 gitlab_conf.append('  "X-Forwarded-Proto" => "https",')
 gitlab_conf.append('  "X-Forwarded-Ssl" => "on"')
@@ -106,7 +106,7 @@ if udomname:
             'port': odom['port'],
             'base': odom['base_dn'],
             'block_auto_created_users': False,
-            'encryption': 'simple_tls',
+            'encryption': 'plain',
             'verify_certificates': False,
             'block_auto_created_user': False
         }
