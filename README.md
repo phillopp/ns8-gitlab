@@ -1,6 +1,6 @@
 # ns8-gitlab
 
-Hier kommt Text hin.
+This is [Gitlab](https://about.gitlab.com/)-CE for Nethserver 8.
 
 ## Install
 
@@ -18,9 +18,10 @@ Output example:
 Let's assume that the gitlab1 instance is named `gitlab1`.
 
 Launch `configure-module`, by setting the following parameters:
-- `<MODULE_PARAM1_NAME>`: <MODULE_PARAM1_DESCRIPTION>
-- `<MODULE_PARAM2_NAME>`: <MODULE_PARAM2_DESCRIPTION>
-- ...
+- `host`: The URL that the Gitlab-Installation is reachable.
+- `registry_host`: The URL the Gitlab Registry is reachable
+- `http2https`: If traefik should redirect to the https protocoll
+- `lets_encrypt`: If Nethserver should get a Lets Encrypt HTTPS Cert
 
 Example:
 
