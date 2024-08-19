@@ -118,7 +118,7 @@ if smtp_settings['password'] != 'none':
 if smtp_settings['username'] and smtp_settings['password']:
     gitlab_conf.append(f"gitlab_rails['smtp_password'] = {smtp_settings['password']}")
     gitlab_conf.append(f"gitlab_rails['smtp_username'] = {smtp_settings['username']}")
-    gitlab_conf.append('gitlab_rails['smtp_authentication'] = "login"')
+    gitlab_conf.append('gitlab_rails[\'smtp_authentication\'] = "login"')
 
 # Write file
 
