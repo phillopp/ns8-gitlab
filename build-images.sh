@@ -8,7 +8,7 @@
 # Terminate on error
 set -e
 
-GITLAB_VERSION=17.5.2
+GITLAB_VERSION=17.6.0
 GITLAB_RUNNER_VERSION="latest"
 
 # Prepare variables for later use
