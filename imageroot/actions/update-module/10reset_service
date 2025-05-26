@@ -12,5 +12,8 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
+# Reload Service
+systemctl --user daemon-reload
+
 # Restart container
 systemctl --user restart gitlab.service gitlab-app.service # gitlab-runner.service

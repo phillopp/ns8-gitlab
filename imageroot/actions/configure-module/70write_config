@@ -10,6 +10,7 @@
 import sys
 import os
 import agent
+from agent.ldapproxy import Ldapproxy
 
 def dict_to_gitlab_rb(config, indent=0):
     lines = []
