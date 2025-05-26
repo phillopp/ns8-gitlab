@@ -21,11 +21,7 @@ config["lets_encrypt"] =  rdb.hget(env, "LETS_ENCRYPT") == "True"
 lp = Ldapproxy()
 domains = []
 for key in lp.get_domains_list():
-    domains.append({
-        "name": key,
-        "label": key,
-        "value": key,
-    })
+    domains.append(key)
 
 config['ldap_domain_list'] = domains
 config['ldap_domain'] = rdb.hget(env, "LDAP_DOMAIN")

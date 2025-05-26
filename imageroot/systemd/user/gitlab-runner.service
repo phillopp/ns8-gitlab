@@ -28,11 +28,11 @@ ExecStart=/usr/bin/podman run \
     --replace \
     --volume gitlab-runner-config:/etc/gitlab-runner:Z \
     --volume gitlab-runner-machine-config:/root/.docker/machine:Z \
-    --volume /run/user/${UID}/podman/podman.sock:/var/run/docker.sock \
+    --volume ${XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock \
     ${GITLAB_RUNNER_IMAGE}
-ExecStop=/usr/bin/podman stop --ignore --cidfile %t/gitlab-app.ctr-id -t 10
-ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/gitlab-app.ctr-id
-PIDFile=%t/gitlab-app.pid
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/gitlab-runner.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/gitlab-runner.ctr-id
+PIDFile=%t/gitlab-runner.pid
 Type=forking
 
 [Install]

@@ -12,10 +12,10 @@
     <cv-row v-if="error.getConfiguration">
       <cv-column>
         <NsInlineNotification
-          kind="error"
-          :title="$t('action.get-configuration')"
-          :description="error.getConfiguration"
-          :showCloseButton="false"
+            kind="error"
+            :title="$t('action.get-configuration')"
+            :description="error.getConfiguration"
+            :showCloseButton="false"
         />
       </cv-column>
     </cv-row>
@@ -40,19 +40,19 @@
                 ref="password"
             ></cv-text-input>
             <NsComboBox
-              v-model.trim="ldap_domain"
-              :autoFilter="true"
-              :autoHighlight="true"
-              :title="$t('settings.ldap_domain')"
-              :label="$t('settings.choose_ldap_domain')"
-              :options="ldap_domain_list"
-              :acceptUserInput="false"
-              :showItemType="true"
-              :invalid-message="$t(error.ldap_domain)"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              tooltipAlignment="start"
-              tooltipDirection="top"
-              ref="ldap_domain"
+                v-model.trim="ldap_domain"
+                :autoFilter="true"
+                :autoHighlight="true"
+                :title="$t('settings.ldap_domain')"
+                :label="$t('settings.choose_ldap_domain')"
+                :options="ldap_domain_list"
+                :acceptUserInput="false"
+                :showItemType="true"
+                :invalid-message="$t(error.ldap_domain)"
+                :disabled="loading.getConfiguration || loading.configureModule"
+                tooltipAlignment="start"
+                tooltipDirection="top"
+                ref="ldap_domain"
             >
               <template slot="tooltip">
                 {{
@@ -71,19 +71,20 @@
             <cv-row v-if="error.configureModule">
               <cv-column>
                 <NsInlineNotification
-                  kind="error"
-                  :title="$t('action.configure-module')"
-                  :description="error.configureModule"
-                  :showCloseButton="false"
+                    kind="error"
+                    :title="$t('action.configure-module')"
+                    :description="error.configureModule"
+                    :showCloseButton="false"
                 />
               </cv-column>
             </cv-row>
             <NsButton
-              kind="primary"
-              :icon="Save20"
-              :loading="loading.configureModule"
-              :disabled="loading.getConfiguration || loading.configureModule"
-              >{{ $t("settings.save") }}</NsButton
+                kind="primary"
+                :icon="Save20"
+                :loading="loading.configureModule"
+                :disabled="loading.getConfiguration || loading.configureModule"
+            >{{ $t("settings.save") }}
+            </NsButton
             >
           </cv-form>
         </cv-tile>
@@ -136,7 +137,9 @@ export default {
         host: "",
         password: "",
         ldap_domain: "",
-        ldap_domain_list: ""
+        ldap_domain_list: "",
+        registryHost: "",
+        runner_token: "",
       },
     };
   },
@@ -213,7 +216,7 @@ export default {
       this.password = config.password;
       this.ldap_domain = config.ldap_domain;
       this.ldap_domain_list = config.ldap_domain_list;
-      this.registryHost = config.registry_host
+      this.registryHost = config.registry_host;
 
       // TODO focus first configuration field
       this.focusElement("host");
@@ -300,7 +303,6 @@ export default {
         console.error(`error creating task ${taskAction}`, err);
         this.error.configureModule = this.getErrorMessage(err);
         this.loading.configureModule = false;
-        return;
       }
     },
     configureModuleAborted(taskResult, taskContext) {
