@@ -35,7 +35,7 @@
         },
         "password": {
             "type": "string",
-            "description": "LDAP-Domain for authentification"
+            "description": "Gitlab initial root password"
         },
         "ldap_domain": {
             "type": "string",

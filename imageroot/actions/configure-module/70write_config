@@ -108,18 +108,21 @@ if ldap_domain:
 
 # Mail Setting
 
-gitlab_conf.append("gitlab_rails['smtp_enable'] = true")
-gitlab_conf.append(f"gitlab_rails['smtp_address'] = {smtp_settings['host']}")
-gitlab_conf.append(f"gitlab_rails['smtp_port'] = {smtp_settings['port']}")
-gitlab_conf.append(f"gitlab_rails['smtp_port'] = {smtp_settings['port']}")
-gitlab_conf.append(f"gitlab_rails['smtp_tls'] = {smtp_settings['tls_verify']}")
+#gitlab_conf.append("gitlab_rails['smtp_enable'] = true")
+#gitlab_conf.append(f"gitlab_rails['smtp_address'] = {smtp_settings['host']}")
+#gitlab_conf.append(f"gitlab_rails['smtp_port'] = {smtp_settings['port']}")
 
-if smtp_settings['password'] != 'none':
-    gitlab_conf.append(f"gitlab_rails['smtp_authentication'] = {smtp_settings['encrypt_smtp']}")
-if smtp_settings['username'] and smtp_settings['password']:
-    gitlab_conf.append(f"gitlab_rails['smtp_password'] = {smtp_settings['password']}")
-    gitlab_conf.append(f"gitlab_rails['smtp_username'] = {smtp_settings['username']}")
-    gitlab_conf.append('gitlab_rails[\'smtp_authentication\'] = "login"')
+#if smtp_settings['tls_verify']:
+#    gitlab_conf.append(f"gitlab_rails['smtp_tls'] = true")
+#else:
+#    gitlab_conf.append(f"gitlab_rails['smtp_tls'] = false")
+
+#if smtp_settings['password'] != 'none':
+#    gitlab_conf.append(f"gitlab_rails['smtp_authentication'] = {smtp_settings['encrypt_smtp']}")
+#if smtp_settings['username'] and smtp_settings['password']:
+#    gitlab_conf.append(f"gitlab_rails['smtp_password'] = {smtp_settings['password']}")
+#    gitlab_conf.append(f"gitlab_rails['smtp_username'] = {smtp_settings['username']}")
+#    gitlab_conf.append('gitlab_rails[\'smtp_authentication\'] = "login"')
 
 # Write file
 
