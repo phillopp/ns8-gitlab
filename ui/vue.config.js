@@ -7,5 +7,10 @@ module.exports = {
         maxSize: 250000,
       },
     },
+    resolve: {
+      fallback: {
+        crypto: false,
+      },
+    },
   },
 };
