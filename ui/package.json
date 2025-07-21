@@ -16,7 +16,7 @@
     "axios": "^1.0.0",
     "carbon-components": "^10.41.0",
     "core-js": "^3.6.5",
-    "lottie-web-vue": "^1.2.0",
+    "lottie-web-vue": "^2.0.0",
     "sass": "^1.34.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
