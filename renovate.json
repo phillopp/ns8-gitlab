@@ -2,5 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/build-images.sh/"],
+      "matchStrings": ["docker\\.io/gitlab/gitlab-ce:(?<currentValue>[-0-9\\.a-z]+)"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "gitlab/gitlab-ce"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/build-images.sh/"],
+      "matchStrings": ["docker\\.io/gitlab/gitlab-runner:(?<currentValue>[-0-9\\.a-z]+)"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "gitlab/gitlab-runner"
+    }
   ]
 }
