@@ -54,9 +54,9 @@
     semver "^6.3.1"
 
 "@babel/eslint-parser@^7.11.0":
-  version "7.27.5"
-  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.27.5.tgz#56577afa9d820e9936e986d3a3b79c422223dfc6"
-  integrity sha512-HLkYQfRICudzcOtjGwkPvGc5nF1b4ljLZh1IRDj50lRZ718NAKVgQpIAUX8bfg6u/yuSKY3L7E0YzIV+OxrB8Q==
+  version "7.29.7"
+  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.29.7.tgz#272cc7531972ff45bc0db96c45349cb7304d21e1"
+  integrity sha512-zxt+UJTOMKvUt3yOg+D58MLuz334pHp93qifMFcjIIO+9hN6t+ufw2gi7vDPMpxvfnHRR+3VVXvIjineCcgyXw==
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
     eslint-visitor-keys "^2.1.0"
@@ -914,20 +914,20 @@
   dependencies:
     "@ibm/telemetry-js" "^1.5.0"
 
-"@carbon/icons-vue@10.130.0":
-  version "10.130.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.130.0.tgz#2b0bd8c7c9d864a29699e3fc92fc8f189cf9ca3e"
-  integrity sha512-GRo6tthRp3itB0bm5unG2i1tpWH+hlmFA1Sbu9k0GP1oYro58TGboYQbQEopLaADKaPewDLhbjG2I4ejWbRZBw==
-  dependencies:
-    "@carbon/icon-helpers" "^10.76.0"
-    "@ibm/telemetry-js" "^1.5.0"
-
 "@carbon/icons-vue@10.63.0":
   version "10.63.0"
   resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.63.0.tgz#7e6dd8602537a77acfdf06c51585a51bc905c6e7"
   integrity sha512-JLvq0gYc6S25kOy4JvyGe6jykJezfngsUoTX18nSauE4T5Ikho7osQw/uXzsJNqPlk7HksnNrkrj142omO1PRA==
   dependencies:
     "@carbon/icon-helpers" "^10.37.0"
+
+"@carbon/icons-vue@^10.130.0":
+  version "10.130.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.130.0.tgz#2b0bd8c7c9d864a29699e3fc92fc8f189cf9ca3e"
+  integrity sha512-GRo6tthRp3itB0bm5unG2i1tpWH+hlmFA1Sbu9k0GP1oYro58TGboYQbQEopLaADKaPewDLhbjG2I4ejWbRZBw==
+  dependencies:
+    "@carbon/icon-helpers" "^10.76.0"
+    "@ibm/telemetry-js" "^1.5.0"
 
 "@carbon/telemetry@0.1.0", "@carbon/telemetry@^0.1.0":
   version "0.1.0"
@@ -1043,10 +1043,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@nethserver/ns8-ui-lib@^1.0.0":
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/@nethserver/ns8-ui-lib/-/ns8-ui-lib-1.12.2.tgz#f702872146ea88e94e3eabf69b49ee1cdfc70204"
-  integrity sha512-hjY+qCT3k8GrPzbpuz9549prR1Y3e9JtRMiVoEvOAcwyeoxKH1KJmvSU4q5AelyR0sVVL5Er4y/CC6N0/+l/1w==
+"@nethserver/ns8-ui-lib@^1.3.2":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@nethserver/ns8-ui-lib/-/ns8-ui-lib-1.12.3.tgz#3b135deaa0afc1891574e7e54023ea58a137d572"
+  integrity sha512-s1SgRurwaGAEUWBE2cu4RtQDIp3zQUAz5EwQSU3ggeVbYLD2KNwrgOOt+S34qYluMkp6+1CbenNfGbDmrwNzDQ==
   dependencies:
     "@rollup/plugin-json" "^4.1.0"
     core-js "^3.15.2"
@@ -2154,7 +2154,7 @@ await-to-js@^3.0.0:
   resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-3.0.0.tgz#70929994185616f4675a91af6167eb61cc92868f"
   integrity sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==
 
-axios@^1.0.0:
+axios@^1.11.0:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.16.1.tgz#517e29291d19d6e8cf919ff264f4fe157261ba12"
   integrity sha512-caYkukvroVPO8KrzuJEb50Hm07KwfBZPEC3VeFHTsqWHvKTsy54hjJz9BS/cdaypROE2rH6xvm9mHX4fgWkr3A==
