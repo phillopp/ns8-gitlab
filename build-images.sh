@@ -8,9 +8,6 @@
 # Terminate on error
 set -e
 
-GITLAB_VERSION=18.11.3
-GITLAB_RUNNER_VERSION="v18.11.3"
-
 # Prepare variables for later use
 images=()
 # The image will be pushed to GitHub container registry
@@ -42,7 +39,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@any:routeadm cluster:accountconsumer node:fwadm" \
     --label="org.nethserver.tcp-ports-demand=2" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/gitlab/gitlab-ce:${GITLAB_VERSION}-ce.0 docker.io/gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION}" \
+    --label="org.nethserver.images=docker.io/gitlab/gitlab-ce:18.11.3-ce.0 docker.io/gitlab/gitlab-runner:v18.11.3" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
