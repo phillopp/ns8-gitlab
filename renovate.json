@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["local>NethServer/.github:ns8-automerge"]
   "customManagers": [
     {
       "customType": "regex",
