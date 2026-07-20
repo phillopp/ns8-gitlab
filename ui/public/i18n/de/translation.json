@@ -44,7 +44,8 @@
         "no_volumes": "keine Volumen"
     },
     "about": {
-        "title": "Über"
+        "title": "Über",
+        "source_package": "Quellpaket"
     },
     "action": {
         "list-backup-repositories": "Liste der Datensicherungs-Speicherort",

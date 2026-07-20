@@ -110,7 +110,7 @@
             </div>
             <div class="key-value-setting">
               <span class="label">{{
-                core.$t("software_center.source_package")
+                core.$t("about.source_package")
               }}</span>
               <span class="value">
                 {{ app.source }}
