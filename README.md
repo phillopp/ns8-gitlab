@@ -44,6 +44,12 @@ You can forcefully update the module
 api-cli run update-module --data '{"module_url":"ghcr.io/phillopp/gitlab:latest","instances":["gitlab1"],"force":true}'
 ```
 
+### DB migration for v18 to v19
+
+```shell
+podman exec -it gitlab-app gitlab-ctl pg-upgrade -V 17
+```
+
 ## Smarthost setting discovery
 
 Some configuration settings, like the smarthost setup, are not part of the
